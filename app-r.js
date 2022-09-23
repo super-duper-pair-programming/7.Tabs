@@ -27,13 +27,12 @@ const render = tabsData => {
     ${tabsData.map((tabData, i) => `<div class="tab" data-index="${i}">${tabData.title}</div>`).join('')}
     <span class="glider"></span>
   </nav>
-
+  
   ${tabsData.map((tabData, i) => `<div class="tab-content ${i === 0 ? 'active' : ''}">${tabData.content}</div>`).join('')}
   `;
 
-  document.querySelector('.spinner').style.display = 'none';
-
   $tabs.style.setProperty('--tabs-length', tabsData.length);
+  document.querySelector('.spinner').style.display = 'none';
 };
 
 const activateTab = tabIndex => {
@@ -53,3 +52,7 @@ $tabs.addEventListener('click', e => {
 fetchTabsData()
   .then(render)
   .catch(e => console.log(e));
+
+// [변동사항]
+// - querySelector 사용 최소화
+// - render, activeTab 함수를 분리하여 fetchTabsData 이후 then 부분 간소화
